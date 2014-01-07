@@ -1,0 +1,65 @@
+<script src="socket.io.min.js"></script>
+
+<canvas id="myCanvas" width="600" height="100"></canvas>
+
+
+<script>
+
+  var nos =[];
+  var socket = io.connect('http://localhost');
+  socket.on('news', function (data) {
+  	points.push(data.value)
+ 	update();
+    
+  });
+
+
+  function update(){
+  	drawGraph(points);
+  }
+
+
+var c=document.getElementById("myCanvas");
+var ctx=c.getContext("2d");
+ctx.fillStyle="#FF0000";
+
+
+
+var points = []
+
+setTimeout(function(){drawGraph(points)},1000);
+
+function drawGraph(a){
+
+	if( a.length > 15 )
+	{
+		a = a.slice(a.length-15,a.length);
+	}
+
+	c.width = c.width;
+
+	var interval = 600 / a.length;
+	ctx.moveTo(0,100-a[i]);
+
+	for (var i = 0,x=0; i < a.length; i++, x += interval) {
+		drawpoint(x,a[i]);
+		if(i < a.length -1  ){
+		ctx.lineTo(x+interval,100-a[i+1]);
+		ctx.moveTo(x+interval,100-a[i+1]);
+		ctx.stroke();
+		}
+	};
+
+}
+
+
+
+
+function drawpoint(x,y){
+
+	ctx.beginPath();
+	ctx.arc(x,100-y,2,0,2*Math.PI);
+	ctx.stroke()
+}
+
+</script>
