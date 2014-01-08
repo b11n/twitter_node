@@ -8,14 +8,12 @@ var twit = new twitter({
 });
 
 
-key = "AAP";
-
-var io = require('socket.io').listen(8111);
+var io = require('socket.io').listen(80);
 
 io.sockets.on('connection', function (socket) {
 
 		setInterval(function(){
-			socket.emit('news', { value: count, keyword:key });
+			socket.emit('news', { value: count });
 			count = 0;
 		},1000)
 
@@ -26,7 +24,7 @@ count = 0;
 
 
 
-twit.stream('filter', {track:key}, function(stream) {
+twit.stream('filter', {track:'AktifSabır'}, function(stream) {
     stream.on('data', function(data) {
         //console.log(data.text)
         count++

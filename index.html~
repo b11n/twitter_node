@@ -1,24 +1,13 @@
 <script src="socket.io.min.js"></script>
 
 <canvas id="myCanvas" width="600" height="100"></canvas>
-<div id="tracking"> </div>
-<div id="no"> </div>
 
 
 <script>
 
   var nos =[];
-  var socket = io.connect('http://172.25.1.98:8111');
+  var socket = io.connect('http://localhost');
   socket.on('news', function (data) {
-
-  	console.log(data);
-
-  	var t=document.getElementById("tracking");
-  	t.innerHTML = data.keyword;
-
-  	var v=document.getElementById("no");
-  	v.innerHTML = data.value;
-
   	points.push(data.value)
  	update();
     
